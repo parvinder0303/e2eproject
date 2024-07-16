@@ -6,13 +6,13 @@ pipeline {
   }
 
   stages {
-    stage(Cleanup Workspace){
+    stage("Cleanup Workspace"){
       steps {
         cleanWs()
       }
       }
 
-      stage(Build App){
+      stage("Build App"){
             steps {
               sh "mvn clean package"
             }
