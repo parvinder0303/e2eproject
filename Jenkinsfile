@@ -1,5 +1,5 @@
 pipeline {
-  agent ant
+  agent any
   tools {
   jdk "jdk-tool"
   maven "Maven3"
