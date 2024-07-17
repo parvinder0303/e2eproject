@@ -5,7 +5,7 @@ pipeline {
         maven "Maven3"
     }
     environment {
-          DOCKER_IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
+          DOCKERIMAGE = "haleemo/complete-prodcution-e2e-pipeline"
           DOCKERPASS = "dockerhub"
 
         }
@@ -75,7 +75,7 @@ pipeline {
          stage('Build and push docker image') {
                     steps {
                       script {
-                        docker_image = docker.build("${DOCKER_IMAGE}:V${BUILD_NUMBER}")
+                        docker_image = docker.build (DOCKERIMAGE + ":V${BUILD_NUMBER}")
                         withDockerRegistry('', DOCKERPASS) {
                           docker_image.push(":V${BUILD_NUMBER}")
                           docker_image.push("latest")
