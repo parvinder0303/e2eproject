@@ -49,6 +49,7 @@ pipeline {
             script {
               withSonarQubeEnv(credentialsId: 'sonartoken') {
                 sh '''
+                    mvn sonar:sonar \
                     ${sonarhome}/bin/sonar-scanner \
                     -Dsonar.projectKey=product-key \
                     -Dsonar.projectName=product \
