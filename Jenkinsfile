@@ -31,13 +31,14 @@ pipeline {
         }
 
         stage('Sonarqube Analysis') {
-                    steps {
-                      withSonarQubeEnv(credentialsId: 'sonartoken') {
-                        sh 'mvn sonar:sonar'
-
-                      }
-                    }
+            steps {
+              script {
+                withSonarQubeEnv(credentialsId: 'sonartoken') {
+                  sh 'mvn sonar:sonar'
                 }
+              }
+            }
+        }
 
 //         stage('Sonar Scanner') {
 //             environment {
