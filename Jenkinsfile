@@ -76,12 +76,10 @@ pipeline {
                       script {
                         withDockerRegistry('', credentialsId: 'dockerhub') {
                           docker_image = docker.build '${DOCKER_IMAGE}'
-                        }
-                       }
-                        withDockerRegistry('', credentialsId: 'dockerhub') {
                           docker_image.push(":V${BUILD_NUMBER}")
                           docker_image.push("latest")
-                      }
+                        }
+                       }
                    }
                 }
 
