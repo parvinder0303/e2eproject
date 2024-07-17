@@ -76,7 +76,7 @@ pipeline {
                     steps {
                       script {
                         withDockerRegistry('', DOCKERPASS) {
-                          docker_image = docker.build '${DOCKER_IMAGE}'
+                          docker_image = docker.build ('${DOCKER_IMAGE}')
                           docker_image.push(":V${BUILD_NUMBER}")
                           docker_image.push("latest")
                         }
@@ -86,7 +86,7 @@ pipeline {
 
         stage('Remove the unused docker image') {
                 steps {
-                  sh "docker rmi ${DOCKER_IMAGE}"
+                  sh "docker system prune -af"
                 }
             }
 
