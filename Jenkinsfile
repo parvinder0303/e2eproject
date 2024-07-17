@@ -30,25 +30,34 @@ pipeline {
             }
         }
 
-        stage('Sonar Scanner') {
-            environment {
-                sonarhome = tool 'sonartool'
-            }
-        steps {
-            withSonarQubeEnv('sonar') {
-                sh '''
-                    ${sonarhome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=product-key \
-                    -Dsonar.projectName=product \
-                    -Dsonar.projectVersion=1.0 \
-                    -Dsonar.sources=src/ \
-                    -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                    -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
-                '''
+        stage('Sonarqube Analysis') {
+                    steps {
+                      withSonarQubeEnv(credentialsId: 'sonartoken') {
+                        sh 'mvn sonar:sonar'
+
+                      }
+                    }
                 }
-            }
-        }
-    }
+
+//         stage('Sonar Scanner') {
+//             environment {
+//                 sonarhome = tool 'sonartool'
+//             }
+//         steps {
+//             withSonarQubeEnv('sonar') {
+//                 sh '''
+//                     ${sonarhome}/bin/sonar-scanner \
+//                     -Dsonar.projectKey=product-key \
+//                     -Dsonar.projectName=product \
+//                     -Dsonar.projectVersion=1.0 \
+//                     -Dsonar.sources=src/ \
+//                     -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+//                     -Dsonar.junit.reportsPath=target/surefire-reports/ \
+//                     -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+//                     -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+//                 '''
+//                 }
+//             }
+//         }
+//     }
 }
