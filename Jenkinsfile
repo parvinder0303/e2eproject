@@ -5,7 +5,7 @@ pipeline {
         maven "Maven3"
     }
     environment {
-          DOCKER-IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
+          DOCKER_IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
 
         }
 
@@ -75,7 +75,7 @@ pipeline {
                     steps {
                       script {
                         withDockerRegistry('', credentialsId: 'dockerhub') {
-                          docker_image = docker.build '${DOCKER-IMAGE}'
+                          docker_image = docker.build '${DOCKER_IMAGE}'
                         }
                        }
                         withDockerRegistry('', credentialsId: 'dockerhub') {
@@ -87,7 +87,7 @@ pipeline {
 
         stage('Remove the unused docker image') {
                 steps {
-                  sh "docker rmi ${DOCKER-IMAGE}"
+                  sh "docker rmi ${DOCKER_IMAGE}"
                 }
             }
 
