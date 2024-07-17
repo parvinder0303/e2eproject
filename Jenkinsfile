@@ -5,7 +5,6 @@ pipeline {
         maven "Maven3"
     }
     environment {
-          DOCKER-PASS = "dockerhub"
           DOCKER-IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
 
         }
