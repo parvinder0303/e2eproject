@@ -42,7 +42,6 @@ pipeline {
 //         }
 
         stage('Sonar Scanner') {
-          }
           steps {
             script {
               withSonarQubeEnv(credentialsId: 'sonartoken') {
