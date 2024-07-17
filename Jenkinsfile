@@ -54,8 +54,17 @@ pipeline {
                    -Dsonar.tests=src/test/java \
                    -Dsonar.exclusions=src/test/java/**
                 '''
+              }
+            }
+          }
+        }
+
+         stage('Sonarqube QualityGate') {
+            steps {
+              script {
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonartoken' {
                 }
-               }
+              }
             }
         }
     }
