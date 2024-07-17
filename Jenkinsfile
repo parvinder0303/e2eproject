@@ -5,10 +5,8 @@ pipeline {
         maven "Maven3"
     }
     environment {
-          DOCKER_IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
-          DOCKERPASS = "dockerhub"
-
-        }
+        DOCKER_IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
+    }
 
     stages {
         stage("Cleanup Workspace") {
@@ -35,60 +33,48 @@ pipeline {
             }
         }
 
-//         stage('Sonarqube Analysis') {
-//             steps {
-//               script {
-//                 withSonarQubeEnv(credentialsId: 'sonartoken') {
-//                   sh 'mvn sonar:sonar'
-//
-//                 }
-//               }
-//             }
-//         }
-
         stage('Sonar Scanner') {
-          steps {
-            script {
-              withSonarQubeEnv(credentialsId: 'sonartoken') {
-                sh '''
-                   mvn clean verify sonar:sonar \
-                   -Dsonar.projectKey=product-key \
-                   -Dsonar.projectName=product \
-                   -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/main/java \
-                   -Dsonar.tests=src/test/java \
-                   -Dsonar.exclusions=src/test/java/**
-                '''
-              }
-            }
-          }
-        }
-
-         stage('Sonarqube QualityGate') {
             steps {
-              script {
-                waitForQualityGate abortPipeline: false, credentialsId: 'sonartoken'
-              }
+                script {
+                    withSonarQubeEnv('sonartoken') {
+                        sh '''
+                           mvn clean verify sonar:sonar \
+                           -Dsonar.projectKey=product-key \
+                           -Dsonar.projectName=product \
+                           -Dsonar.projectVersion=1.0 \
+                           -Dsonar.sources=src/main/java \
+                           -Dsonar.tests=src/test/java \
+                           -Dsonar.exclusions=src/test/java/**
+                        '''
+                    }
+                }
             }
         }
 
-         stage('Build and push docker image') {
-                    steps {
-                      script {
-                        withDockerRegistry('', DOCKERPASS) {
-                          docker_image = docker.build ('${DOCKER_IMAGE}')
-                          docker_image.push(":V${BUILD_NUMBER}")
-                          docker_image.push("latest")
-                        }
-                       }
-                   }
+        stage('Sonarqube QualityGate') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonartoken'
                 }
+            }
+        }
+
+        stage('Build and push docker image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub') {
+                        def docker_image = docker.build("${DOCKER_IMAGE}")
+                        docker_image.push("V${BUILD_NUMBER}")
+                        docker_image.push("latest")
+                    }
+                }
+            }
+        }
 
         stage('Remove the unused docker image') {
-                steps {
-                  sh "docker system prune -af"
-                }
+            steps {
+                sh "docker system prune -af"
             }
-
+        }
     }
 }
