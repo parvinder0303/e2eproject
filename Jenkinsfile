@@ -46,15 +46,13 @@ pipeline {
             script {
               withSonarQubeEnv(credentialsId: 'sonartoken') {
                 sh '''
-                    mvn sonar:sonar \
-                    -Dsonar.projectKey=product-key \
-                    -Dsonar.projectName=product \
-                    -Dsonar.projectVersion=1.0 \
-                    -Dsonar.sources=src/ \
-                    -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                    -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+                   mvn clean verify sonar:sonar \
+                   -Dsonar.projectKey=product-key \
+                   -Dsonar.projectName=product \
+                   -Dsonar.projectVersion=1.0 \
+                   -Dsonar.sources=src/main/java \
+                   -Dsonar.tests=src/test/java \
+                   -Dsonar.exclusions=src/test/java/**
                 '''
                 }
                }
