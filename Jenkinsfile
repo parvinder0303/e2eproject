@@ -4,6 +4,11 @@ pipeline {
         jdk "jdk-tool"
         maven "Maven3"
     }
+    environment {
+          DOCKER-PASS = "dockerhub"
+          DOCKER-IMAGE = "haleemo/complete-prodcution-e2e-pipeline"
+
+        }
 
     stages {
         stage("Cleanup Workspace") {
@@ -66,5 +71,20 @@ pipeline {
               }
             }
         }
+
+         stage('Build and push docker image') {
+                    steps {
+                      script {
+                        withDockerRegistry('', credentialsId: 'dockerhub') {
+                          docker_image = docker.build '${DOCKER-IMAGE}'
+                        }
+                        withDockerRegistry('', credentialsId: 'dockerhub') {
+                          docker_image.push(":V${BUILD_NUMBER}")
+                          docker_image.push("latest")
+
+                      }
+                    }
+                }
+
     }
 }
