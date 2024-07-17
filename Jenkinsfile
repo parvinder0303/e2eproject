@@ -78,11 +78,12 @@ pipeline {
                         withDockerRegistry('', credentialsId: 'dockerhub') {
                           docker_image = docker.build '${DOCKER-IMAGE}'
                         }
+                       }
                         withDockerRegistry('', credentialsId: 'dockerhub') {
                           docker_image.push(":V${BUILD_NUMBER}")
                           docker_image.push("latest")
                       }
-                    }
+                   }
                 }
 
         stage('Remove the unused docker image') {
