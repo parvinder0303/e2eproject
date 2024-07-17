@@ -30,16 +30,16 @@ pipeline {
             }
         }
 
-        stage('Sonarqube Analysis') {
-            steps {
-              script {
-                withSonarQubeEnv(credentialsId: 'sonartoken') {
-                  sh 'mvn sonar:sonar'
-
-                }
-              }
-            }
-        }
+//         stage('Sonarqube Analysis') {
+//             steps {
+//               script {
+//                 withSonarQubeEnv(credentialsId: 'sonartoken') {
+//                   sh 'mvn sonar:sonar'
+//
+//                 }
+//               }
+//             }
+//         }
 
         stage('Sonar Scanner') {
           environment {
