@@ -49,7 +49,7 @@ pipeline {
         stage('Sonar Scanner') {
           steps {
             script {
-              withSonarQubeEnv(credentialsId: 'sonartoken') {
+              withSonarQubeEnv(credentialsId: 'sonartoken2') {
                 sh '''
                    mvn clean verify sonar:sonar \
                    -Dsonar.projectKey=product-key \
