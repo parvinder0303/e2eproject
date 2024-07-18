@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk "jdk-tool"
-        maven "Maven3"
+        jdk "OracleJDK17"
+        maven "MAVEN3"
     }
     environment {
           DOCKERIMAGE = "haleemo/complete-prodcution-e2e-pipeline"
