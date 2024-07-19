@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: production
+  labels:
+    app: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: production
+  template:
+    metadata:
+      name: production
+      labels:
+        app: production
+    spec:
+      containers:
+        - name: production
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          ports:
+            - name: appport
+              containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
+      
