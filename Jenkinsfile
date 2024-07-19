@@ -90,5 +90,14 @@ pipeline {
                 }
             }
 
+         stage('Kubernetes deploy') {
+                  agent {label 'KOPS'}
+                    steps {
+                      sh "helm upgrade --install --force productchart helm/productchart \
+                          --set image=${DOCKERIMAGE}:V${BUILD_NUMBER} \
+                          --namespace prod"
+                      }
+                }
+
     }
 }

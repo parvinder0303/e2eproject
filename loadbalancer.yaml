@@ -4,10 +4,10 @@ metadata:
   name: load-balancer
 spec:
   selector:
-    app: load-balancer
+    app: production
   ports:
     - protocol: TCP
       port: 80
-      targetPort: appport
+      targetPort: 8080
   type: LoadBalancer
   
