@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: production
+  labels:
+    app: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: production
+  template:
+    metadata:
+      name: production
+      labels:
+        app: production
+    spec:
+      containers:
+        - name: production
+          image: haleemo/complete-prodcution-e2e-pipeline:latest
+          imagePullPolicy: Always
+          ports:
+            - name: appport
+              containerPort: 8080
+              protocol: TCP
+      
