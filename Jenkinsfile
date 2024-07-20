@@ -5,7 +5,10 @@ pipeline {
         maven "MAVEN3"
     }
 
+     environment {
+              DOCKERIMAGE = "haleemo/complete-prodcution-e2e-pipeline"
 
+            }
     stages {
         stage("Cleanup Workspace") {
             steps {
