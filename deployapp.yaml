@@ -17,7 +17,9 @@ spec:
     spec:
       containers:
         - name: production
-          image: {{ .Values.image }}
+#          image: {{ .Values.image }}
+          image: haleemo/complete-prodcution-e2e-pipeline:latest
+
           imagePullPolicy: Always
           ports:
             - name: appport
