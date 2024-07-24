@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: production
+    app.kubernetes.io/instance: gitops-app
+  name: production
+  namespace: prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: production
+  template:
+    metadata:
+      labels:
+        app: production
+      name: production
+    spec:
+      containers:
+        - image: 'haleemo/complete-prodcution-e2e-pipeline:latest'
+          imagePullPolicy: Always
+          name: production
+          ports:
+            - containerPort: 8080
+              name: appport
+              protocol: TCP
