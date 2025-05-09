@@ -11,7 +11,7 @@ pipeline{
     stages{
         stage("Checkout from SCM"){
             steps {
-                git branch: 'master', url: 'https://github.com/parvinder0303/e2eproject'
+                git branch: 'main', url: 'https://github.com/parvinder0303/e2eproject'
             }
         }
     
