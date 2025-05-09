@@ -94,7 +94,7 @@ pipeline{
 
         }
 
-    }
+
 
     post {
         failure {
@@ -108,4 +108,4 @@ pipeline{
                     mimeType: 'text/html',to: "dmistry@yourhostdirect.com"
           }      
     }
-}
+
