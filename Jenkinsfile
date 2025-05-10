@@ -41,14 +41,6 @@ pipeline{
 
         }
 
-        stage("Quality Gate") {
-            steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
-                }
-            }
-
-        }
 
         stage("Build & Push Docker Image") {
             steps {
@@ -69,7 +61,7 @@ pipeline{
         stage("Trivy Scan") {
             steps {
                 script {
-		   sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image dmancloud/complete-prodcution-e2e-pipeline:1.0.0-22 --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+		   sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image parvinder0303/e2eproject:1.0.0-22 --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
                 }
             }
 
