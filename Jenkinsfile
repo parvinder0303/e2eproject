@@ -41,7 +41,16 @@ pipeline{
 
         }
 
-
+stage('Login to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
+                        // Login happens automatically in the context
+                    }
+                }
+            }
+        }
+	    
         stage("Build & Push Docker Image") {
             steps {
                 script {
