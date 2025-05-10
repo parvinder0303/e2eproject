@@ -7,7 +7,7 @@ pipeline{
     }
     environment {
        SCANNER_HOME=tool 'sonar-scanner'
-	IMAGE_NAME='parvindersingh0303/e2eproject
+	IMAGE_NAME='parvindersingh0303/e2eproject'
 	TAG='parv'
     }
     stages{
