@@ -46,9 +46,9 @@ pipeline{
                  echo "Docker image Creation"
                  docker.withRegistry('', 'docker-cred') {
                  sh '''
-                   		sudo docker build -t demoapp . # todo build the docker image
-                   		sudo docker tag demoapp parvindersingh0303/demoapp:V1.0
-                   		sudo docker push parvindersingh0303/demoapp:V1.0
+                   		docker build -t demoapp . # todo build the docker image
+                   		docker tag demoapp parvindersingh0303/demoapp:V1.0
+                   		docker push parvindersingh0303/demoapp:V1.0
                    	'''
                     }
                  echo "Docker image Creation and push to docker hud completed"
