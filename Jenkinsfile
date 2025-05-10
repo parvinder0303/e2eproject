@@ -7,6 +7,7 @@ pipeline{
     }
     environment {
        SCANNER_HOME=tool 'sonar-scanner'
+	IMAGE_NAME = 'parvindersingh0303/myapp'
     }
     stages{
         stage("Checkout from SCM"){
@@ -41,7 +42,15 @@ pipeline{
 
         }
 
-
+	stage('Login to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
+                        // Login happens automatically in the context
+                    }
+                }
+            }
+        }
 	    
          stage('Build & Push Docker Image') {
             steps {
