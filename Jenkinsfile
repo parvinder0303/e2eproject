@@ -7,6 +7,8 @@ pipeline{
     }
     environment {
        SCANNER_HOME=tool 'sonar-scanner'
+	IMAGE_NAME='parvindersingh0303/e2eproject
+	TAG='parv'
     }
     stages{
         stage("Checkout from SCM"){
@@ -54,7 +56,7 @@ pipeline{
          stage('Build & Push Docker Image') {
             steps {
                 script {
-                    def image = docker.build("${IMAGE_NAME}:${TAG}")
+                    def image = docker.build("${env.IMAGE_NAME}:${env.TAG}")
                     
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
                         image.push()
