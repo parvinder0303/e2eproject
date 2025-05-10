@@ -58,7 +58,7 @@ pipeline{
                 script {
                     def image = docker.build("${env.IMAGE_NAME}:${env.TAG}")
                     
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
                         image.push()
                         image.push('latest') // Optional: also push as latest
                     }
