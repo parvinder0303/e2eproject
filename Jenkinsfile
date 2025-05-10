@@ -56,13 +56,12 @@ pipeline{
             }
         }
 
-        stage("Trivy Scan") {
-            steps {
-                script {
 
-                }
-            }
-
+        stage('Docker Image Scan') { 
+            steps { 
+                sh "trivy image --format table -o trivy-image-report.html 
+parvindersingh0303/demoapp:V1.0 " 
+            } 
         }
 
         stage ('Cleanup Artifacts') {
