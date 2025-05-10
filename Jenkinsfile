@@ -41,15 +41,7 @@ pipeline{
 
         }
 
-stage('Login to Docker Hub') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
-                        // Login happens automatically in the context
-                    }
-                }
-            }
-        }
+
 	    
          stage('Build & Push Docker Image') {
             steps {
@@ -98,12 +90,12 @@ stage('Login to Docker Hub') {
         failure {
             emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
                     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", 
-                    mimeType: 'text/html',to: "dmistry@yourhostdirect.com"
+                    mimeType: 'text/html',to: "parvindersingh0303@gmail.com"
             }
          success {
                emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
                     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
-                    mimeType: 'text/html',to: "dmistry@yourhostdirect.com"
+                    mimeType: 'text/html',to: "parvindersingh0303@gmail.com"
           }      
     }
     }
