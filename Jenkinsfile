@@ -51,20 +51,17 @@ stage('Login to Docker Hub') {
             }
         }
 	    
-        stage("Build & Push Docker Image") {
+         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
-
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image.push("${IMAGE_TAG}")
-                        docker_image.push('latest')
+                    def image = docker.build("${IMAGE_NAME}:${TAG}")
+                    
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
+                        image.push()
+                        image.push('latest') // Optional: also push as latest
                     }
                 }
             }
-
         }
 
         stage("Trivy Scan") {
