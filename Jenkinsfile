@@ -7,7 +7,6 @@ pipeline{
     }
     environment {
        SCANNER_HOME=tool 'sonar-scanner'
-	IMAGE_NAME = 'parvindersingh0303/myapp'
     }
     stages{
         stage("Checkout from SCM"){
